@@ -15,15 +15,16 @@ import android.widget.Toast;
 class DemoView extends View
 {
 
-    private int width; // width of screen
-    private int height; // height of screen
-    private Bitmap bitmap; // defines the canvas screen
-    private Canvas canvas; // the canvas used in this instance of DemoView
-    private Path path; // this "path" here is the lines which make up the body of the screen, both the maze and the player
+    private int width;             // width of screen
+    private int height;            // height of screen
+    private Bitmap bitmap;         // defines the canvas screen
+    private Canvas canvas;         // the canvas used in this instance of DemoView
+    private Path path;             // this "path" here is the lines which make up the body of the screen, both the maze and the player
+    private Path controlsPath;       // controls path
 
-    Context context; //for context
+    Context context;               //for context
 
-    private Paint paintSand;   // colors
+    private Paint paintSand;       // colors
     private Paint paintBlack;
     private Paint paintWhite;
     
@@ -48,6 +49,8 @@ class DemoView extends View
         //canvas = new Canvas();
 
         path = new Path();
+        controlsPath = new Path();
+
         stretchValue = (float)(Resources.getSystem().getDisplayMetrics().widthPixels / com.example.a205037.maze.Maze.getMazeWidth()); //this stretches the maze points to fit the lenovo tablets' screen
 
         paintSand = new Paint();
@@ -56,17 +59,20 @@ class DemoView extends View
         paintSand.setStrokeWidth(10);            // width of the pen's stroke
         paintSand.setAntiAlias(true);
 
-        paintBlack = new Paint(); //we don't use this but it is here for customization
+        paintBlack = new Paint();                //we don't use this but it is here for customization
         paintBlack.setColor(Color.BLACK);
+        paintBlack.setStyle(Paint.Style.STROKE);  // creating a "pen" that does not fill in regions
+        paintBlack.setStrokeWidth(10);            // width of the pen's stroke
+        paintBlack.setAntiAlias(true);
 
-        paintWhite = new Paint(); //we don't use this but it is here for customization
+        paintWhite = new Paint();                //we don't use this but it is here for customization
         paintWhite.setColor(Color.WHITE);
         paintWhite.setStyle(Paint.Style.FILL);
         paintWhite.setStrokeWidth(10);
         
         
         
-        rightCalled = false; //these variables tell us if the character is moving forward/back or left/right - these aren't used in the current program but could be used in a future version of the prohram
+        rightCalled = false;                     //these variables tell us if the character is moving forward/back or left/right - these aren't used in the current program but could be used in a future version of the prohram
         leftCalled = false;
         upCalled = false;
         downCalled = false;
@@ -93,6 +99,7 @@ class DemoView extends View
     {
         super.onDraw(canvas);
         canvas.drawPath(path, paintSand);
+        canvas.drawPath(controlsPath, paintBlack);
         //resetScreen();
 
     }
@@ -103,17 +110,18 @@ class DemoView extends View
 
     void resetScreen() { // clears the screen of what has been drawn by "path", so the walls of the maze and the player character
         path.reset();
+        controlsPath.reset();
         //invalidate();
     }
 
     void drawCharacter(float x, float y, float oldx, float oldy, int direction) { // draws the body of the player character (NOTE: in the process of redrawing the character in this method, everything drawn by path is erased and character is redrawn)
 
 
-        float refX = x; // reference point of triangle
-        float refY = y; // ^
-        float xSlant; //how much the base moves from left to right
+        float refX = x;        // reference point of triangle
+        float refY = y;        // ^
+        float xSlant;          //how much the base moves from left to right
         float ySlant;
-        float topX; //coordinates of the top of the triangle
+        float topX;            //coordinates of the top of the triangle
         float topY;
 
         if (direction == 0) {  // the location of the reference point is dependent on the direction of the character
@@ -122,7 +130,7 @@ class DemoView extends View
 
             xSlant = 0f;
             ySlant = 20f;
-            topX = refX + 20f;
+            topX = refX + 25f;
             topY = refY+ 10f;
         }
         else if (direction == 1) {
@@ -132,7 +140,7 @@ class DemoView extends View
             xSlant = 20f;
             ySlant = 0f;
             topX = refX + 10f;
-            topY = refY - 20f;
+            topY = refY - 25f;
         }
         else if (direction == 2) {
             refX = x + 10f;
@@ -140,7 +148,7 @@ class DemoView extends View
 
             xSlant = 0f;
             ySlant = 20f;
-            topX = refX - 20f;
+            topX = refX - 25f;
             topY = refY + 10f;
         }
         else if (direction == 3) {
@@ -150,7 +158,7 @@ class DemoView extends View
             xSlant = 20f;
             ySlant = 0f;
             topX = refX + 10f;
-            topY = refY + 20f;
+            topY = refY + 25f;
         }
         else {
             return;
@@ -159,13 +167,14 @@ class DemoView extends View
         path.reset();  // clears all of the built path that has already been drawn, including the maze walls and character
 
         drawMaze();   // redraws the maze walls
+        drawController(); // redraws the controller buttons
 
 
-        path.moveTo(refX * stretchValue, refY * stretchValue); //draws base
+        path.moveTo(refX * stretchValue, refY * stretchValue);                       //draws base
         path.lineTo((refX + xSlant) * stretchValue, (refY + ySlant) * stretchValue); //bottom right of triangle
 
 
-        path.moveTo(refX * stretchValue, refY * stretchValue); //draws line from left base to top
+        path.moveTo(refX * stretchValue, refY * stretchValue);                       //draws line from left base to top
         path.lineTo(topX * stretchValue, topY * stretchValue);
 
         path.moveTo((refX + xSlant) * stretchValue, (refY + ySlant) * stretchValue); //draws line from right base to top
@@ -202,6 +211,41 @@ class DemoView extends View
         invalidate(); //calls onDraw()
     }
 
+    void drawController()
+    {
+        width = getScreenWidth();
+        height = getScreenHeight();
+
+        controlsPath.reset();
+
+        controlsPath.moveTo(width * 0.8f, height * 0.8f);   // bottom right button
+        controlsPath.lineTo(width * 0.55f, height * 0.8f);
+
+        controlsPath.moveTo(width * 0.55f, height * 0.8f);
+        controlsPath.lineTo(width * 0.55f, height * 0.7f);
+
+        controlsPath.moveTo(width * 0.55f, height * 0.7f);
+        controlsPath.lineTo(width * 0.8f, height * 0.7f);
+
+        controlsPath.moveTo(width * 0.8f, height * 0.7f);
+        controlsPath.lineTo(width * 0.8f, height * 0.8f);
+
+
+
+
+        controlsPath.moveTo(width * 0.2f, height * 0.8f);   // bottom left button
+        controlsPath.lineTo(width * 0.45f, height * 0.8f);
+
+        controlsPath.moveTo(width * 0.45f, height * 0.8f);
+        controlsPath.lineTo(width * 0.45f, height * 0.7f);
+
+        controlsPath.moveTo(width * 0.45f, height * 0.7f);
+        controlsPath.lineTo(width * 0.2f, height * 0.7f);
+
+        controlsPath.moveTo(width * 0.2f, height * 0.7f);
+        controlsPath.lineTo(width * 0.2f, height * 0.8f);
+
+    }
     void drawWin() { // win-state visuals -- underwhelming
         path.reset();
         invalidate();
@@ -284,3 +328,4 @@ class DemoView extends View
      
    
 }
+
