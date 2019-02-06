@@ -33,6 +33,9 @@ class DemoView extends View
     public boolean leftCalled;
     public boolean upCalled;
     public boolean downCalled;
+
+    int offsetX;
+    int offsetY;
                 
     public boolean action;
     
@@ -69,6 +72,9 @@ class DemoView extends View
         paintWhite.setColor(Color.WHITE);
         paintWhite.setStyle(Paint.Style.FILL);
         paintWhite.setStrokeWidth(10);
+
+        offsetX = getScreenWidth() / 8;
+        offsetY = getScreenHeight() / 8;
         
         
         
@@ -170,15 +176,15 @@ class DemoView extends View
         drawController(); // redraws the controller buttons
 
 
-        path.moveTo(refX * stretchValue, refY * stretchValue);                       //draws base
-        path.lineTo((refX + xSlant) * stretchValue, (refY + ySlant) * stretchValue); //bottom right of triangle
+        path.moveTo(refX * stretchValue + offsetX, refY * stretchValue + offsetY);                       //draws base
+        path.lineTo((refX + xSlant) * stretchValue + offsetX, (refY + ySlant) * stretchValue + offsetY); //bottom right of triangle
 
 
-        path.moveTo(refX * stretchValue, refY * stretchValue);                       //draws line from left base to top
-        path.lineTo(topX * stretchValue, topY * stretchValue);
+        path.moveTo(refX * stretchValue + offsetX, refY * stretchValue + offsetY);                       //draws line from left base to top
+        path.lineTo(topX * stretchValue + offsetX, topY * stretchValue + offsetY);
 
-        path.moveTo((refX + xSlant) * stretchValue, (refY + ySlant) * stretchValue); //draws line from right base to top
-        path.lineTo(topX * stretchValue, topY * stretchValue);
+        path.moveTo((refX + xSlant) * stretchValue + offsetX, (refY + ySlant) * stretchValue + offsetY); //draws line from right base to top
+        path.lineTo(topX * stretchValue + offsetX, topY * stretchValue + offsetY);
 
 
         invalidate();
@@ -198,13 +204,16 @@ class DemoView extends View
         int[][] wall;
         int[] point1;
         int[] point2;
+
+
+
         for (int i = 0; i < numWalls; i += 1) { //just a simple loop that goes through each wall of the maze and draws it
             wall = walls[i];
             point1 = wall[0];
             point2 = wall[1];
 
-            path.moveTo(point1[0] * stretchValue, point1[1] * stretchValue);
-            path.lineTo(point2[0] * stretchValue, point2[1] * stretchValue);
+            path.moveTo(point1[0] * stretchValue + offsetX, point1[1] * stretchValue + offsetY);
+            path.lineTo(point2[0] * stretchValue + offsetX, point2[1] * stretchValue + offsetY);
         }
 
 
@@ -328,4 +337,3 @@ class DemoView extends View
      
    
 }
-
