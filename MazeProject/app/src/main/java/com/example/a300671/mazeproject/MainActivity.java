@@ -13,6 +13,7 @@ import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity
         demoView = findViewById(R.id.signature_canvas);
         character = new Character();
         demoView.setCharacter(character);
+        demoView.drawController();
+
+        final Toast toast = Toast.makeText(demoView.context, "This Happened", Toast.LENGTH_LONG);
 
         //Listens for when the user touches the screen then executes code
         demoView.setOnTouchListener(new View.OnTouchListener() // this onTouchListener is the basis of the entire program: it is the dedicator of all time and space- every layer of reality, in fact- in the program
@@ -45,23 +49,21 @@ public class MainActivity extends AppCompatActivity
                 int y = (int) event.getRawY();                 // captures and stores the vertical value of the screen-press
 
                 switch (event.getAction())                     // sets the "switch" expression's target variable to the action-key of the event see next comment
-                {                                                 // switch case expressions are basically if-then-else statements that make more sense to a programmer looking at the code - the target variable is set in switch(variable), and what follows is a set of cases, saying that in the case of the variable being this, do this
+                {                                              // switch case expressions are basically if-then-else statements that make more sense to a programmer looking at the code - the target variable is set in switch(variable), and what follows is a set of cases, saying that in the case of the variable being this, do this
                     case (MotionEvent.ACTION_DOWN):            // in this case the action-key is ACTION_DOWN, meaning a finger has pressed down on the screen, and the computer will execute the following if statement
-                        if ((x > demoView.getScreenWidth() * 0.65) && (y < demoView.getScreenHeight() * 0.75) && (y > demoView.getScreenHeight() * 0.25)) // if the right side of the screen is pressed
+                        if ((x > demoView.getScreenWidth() * 0.55 && x < demoView.getScreenWidth() * 0.8) && (y > demoView.getScreenHeight() * 0.7 && y < demoView.getScreenHeight() * 0.8)) // if the right side of the screen is pressed
                         {
                             character.turnRight();  // turn clockwise 90 degrees
-                            demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection()); // redraw the character in its new location
-                        } 
-                        else if ((x < demoView.getScreenWidth() * 0.35) && (y < demoView.getScreenHeight() * 0.75) && (y > demoView.getScreenHeight() * 0.25)) // if the left side of the screen is pressed
+                            toast.show();
+                        }
+                        else if ((x > demoView.getScreenWidth() * 0.2 && x < demoView.getScreenWidth() * 0.45) && (y > demoView.getScreenHeight() * 0.7 && y < demoView.getScreenHeight() * 0.95)) // if the left side of the screen is pressed
                         {
-                            character.turnLeft(); // turn counter-clockwise 90 degrees
-                            demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
+                            character.turnLeft();               // turn counter-clockwise 90 degrees
                         } 
                         else if (y < demoView.getScreenHeight() * 0.45) // if the top of the screen is pressed NOTE: y is inverted on the programming side, so effectively this line is saying if the user presses the top .45 portion of the screen
                         {
                             if (character.canMoveForward()) { 
                                 character.moveForward();
-                                demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
                             }
                             else if (character.getWin())
                             {
@@ -91,6 +93,8 @@ public class MainActivity extends AppCompatActivity
                             demoView.leftCalled = false;
                             demoView.rightCalled = false;*/ // this was a different form of engine we were originally using to design the program
                         }
+                        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
+                        demoView.drawController();
                         break;
             /*case MotionEvent.ACTION_MOVE:
             {
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity
         demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
 
         demoView.drawMaze();
+        demoView.drawController();
 
     }
 
