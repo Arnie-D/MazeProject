@@ -1,33 +1,69 @@
 package com.example.a300671.mazeproject;
 
 import android.content.res.Resources;
-import android.widget.Button;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 
-public class Controls
+public class myButton
 {
-    static myButton moveButton;
-    static myButton rightButton;
-    static myButton leftButton;
+    // a button here simply is a rectangle
+    //
 
-    public Controls()
+
+    int x;            // x of top left corner of box
+    int y;            // y of top left corner of box
+
+    int width;
+    int height;
+
+    static int buttonId = 0;
+
+
+
+
+
+
+    public myButton()
     {
-        moveButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.45), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.1));
-        rightButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.55), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.7));
-        leftButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.15), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.7));
+        width = 400;
+        height = 200;
+
+        buttonId = buttonId;
+        buttonId += 1;
     }
 
-    public static myButton[] getButtons()
+    public myButton(int tempX, int tempY)
     {
-        myButton[] set = {moveButton, rightButton, leftButton};
-        return set;
+        width = 300;
+        height = 200;
+
+        x = tempX;
+        y = tempY;
+
+        buttonId = buttonId;
+        buttonId += 1;
     }
 
-    public void pressButton(int num)
+
+    public void draw(DemoView aView)
     {
-        myButton[] set = {moveButton, rightButton, leftButton};
-        set[num].press();
+
     }
 
+    public void press()
+    {
+        if (this.buttonId == 0)         // move
+        {
 
+        }
+        else if (this.buttonId == 1)    // left
+        {
 
+        }
+        else if (this.buttonId == 2)    // right
+        {
+
+        }
+    }
 }
