@@ -26,7 +26,7 @@ public class myButton
 
     public myButton()
     {
-        width = 400;
+        width = 300;
         height = 200;
 
         buttonId = buttonId;
