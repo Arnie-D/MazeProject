@@ -1,51 +1,33 @@
 package com.example.a300671.mazeproject;
 
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
+import android.widget.Button;
 
-public class myButton
+public class Controls
 {
-    // a button here simply is a rectangle
-    //
+    static myButton moveButton;
+    static myButton rightButton;
+    static myButton leftButton;
 
-
-    int x;            // x of top left corner of box
-    int y;            // y of top left corner of box
-
-    int width;
-    int height;
-
-    int buttonId;
-
-
-
-
-
-
-    public myButton()
+    public Controls()
     {
-        width = 400;
-        height = 200;
+        moveButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.45), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.1));
+        rightButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.55), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.7));
+        leftButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.15), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.7));
     }
 
-    public myButton(int tempX, int tempY)
+    public static myButton[] getButtons()
     {
-        width = 400;
-        height = 200;
-
-        x = tempX;
-        y = tempY;
+        myButton[] set = {moveButton, rightButton, leftButton};
+        return set;
     }
 
-    public void press()
+    public void pressButton(int num)
     {
-        Controls.pressButton(buttonId);
+        myButton[] set = {moveButton, rightButton, leftButton};
+        set[num].press();
     }
 
-    public void draw()
-    {
 
-    }
+
 }
