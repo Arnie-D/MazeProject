@@ -83,7 +83,7 @@ public class Character
             System.out.println("Logical infeasibility in canMoveForward"); //Derek added these, idk why
             return false;                                                  // Derek added these because it is good style
         }
-    }
+    }  // end of canMoveForward
     
     public boolean canMoveBackward() // Dropped player movement mechanic, it was working to move the character back but wasn't working with collision detection
     {

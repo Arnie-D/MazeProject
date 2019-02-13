@@ -255,6 +255,7 @@ class DemoView extends View
         controlsPath.lineTo(width * 0.2f, height * 0.8f);
 
     }
+
     void drawWin() { // win-state visuals -- underwhelming
         path.reset();
         invalidate();
