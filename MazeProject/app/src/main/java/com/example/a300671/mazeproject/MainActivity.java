@@ -22,7 +22,14 @@ public class MainActivity extends AppCompatActivity
     private DemoView demoView;
     
     Character character;
-    
+
+    public static final double leftButtonProportionX = 0.15;       // proportion of the screen width where the button starts
+    public static final double moveButtonProportionX = 0.35;
+    public static final double rightButtonProportionX = 0.55;
+
+    public static final double highAxis = 0.1;                     // button axis, high is move, low is left and right
+    public static final double lowAxis = 0.7;
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -35,6 +42,9 @@ public class MainActivity extends AppCompatActivity
         character = new Character();
         demoView.setCharacter(character);
         demoView.drawController();
+
+
+
 
         final Toast toast = Toast.makeText(demoView.context, "This Happened", Toast.LENGTH_LONG);
 
@@ -73,48 +83,22 @@ public class MainActivity extends AppCompatActivity
                                 resetScreen(v);
                             } // end of input description
 
-                        } // end of the long 
-                        /*else if (y > demoView.getScreenHeight() * 0.55)  // for the (DROPPED) backstep mechanic
-                        {
-                            if (character.canMoveBackward()) {
-                                character.moveBackward();
-                                demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
-                            }
-                            else{
-                                resetScreen(v);
-                            }
-                            demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
-                        } */
+                        } // end of the forward step
+
                         else // if a "dead zone" was pressed
                         {
-                            /*demoView.action = false;
-                            demoView.upCalled = false;
-                            demoView.downCalled = false;
-                            demoView.leftCalled = false;
-                            demoView.rightCalled = false;*/ // this was a different form of engine we were originally using to design the program
+
                         }
                         demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
                         demoView.drawController();
                         break;
-            /*case MotionEvent.ACTION_MOVE:
-            {
-                /*demoView.action = false;
-                demoView.upCalled = false;
-                demoView.downCalled = false;
-                demoView.leftCalled = false;
-                demoView.rightCalled = false;
-                break;
-                character.moveForward();
-                demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
-            }*/
-                    case MotionEvent.ACTION_UP:                  //When the user lifts their finger it sets all movement options to false
+                    case MotionEvent.ACTION_MOVE:
                     {
-                        /*demoView.action = false;
-                        demoView.upCalled = false;
-                        demoView.downCalled = false;
-                        demoView.leftCalled = false;
-                        demoView.rightCalled = false;
-                        break;*/ // again, unused form of engine
+
+                    }
+                    case MotionEvent.ACTION_UP:
+                    {
+
                     }
                 }
 
@@ -155,4 +139,9 @@ public class MainActivity extends AppCompatActivity
 
         //demoView.run();
     }*/
+
+   public void win()
+   {
+       demoView.drawWin();
+   }
 }
