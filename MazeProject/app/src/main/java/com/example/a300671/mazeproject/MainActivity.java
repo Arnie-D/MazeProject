@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity
                 switch (event.getAction())                     // sets the "switch" expression's target variable to the action-key of the event see next comment
                 {                                              // switch case expressions are basically if-then-else statements that make more sense to a programmer looking at the code - the target variable is set in switch(variable), and what follows is a set of cases, saying that in the case of the variable being this, do this
                     case (MotionEvent.ACTION_DOWN):            // in this case the action-key is ACTION_DOWN, meaning a finger has pressed down on the screen, and the computer will execute the following if statement
+                        Controls.press(x, y);
+                        
                         if ((x > demoView.getScreenWidth() * 0.55 && x < demoView.getScreenWidth() * 0.8) && (y > demoView.getScreenHeight() * 0.7 && y < demoView.getScreenHeight() * 0.8)) // if the right side of the screen is pressed
                         {
                             character.turnRight();  // turn clockwise 90 degrees
