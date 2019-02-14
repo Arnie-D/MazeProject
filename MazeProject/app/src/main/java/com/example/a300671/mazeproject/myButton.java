@@ -19,6 +19,8 @@ public class myButton
 
     static int buttonId = 0;
 
+    Character character;
+
 
 
 
@@ -31,6 +33,8 @@ public class myButton
 
         buttonId = buttonId;
         buttonId += 1;
+
+        character = Controls.getCharacter();
     }
 
     public myButton(int tempX, int tempY)
@@ -43,27 +47,53 @@ public class myButton
 
         buttonId = buttonId;
         buttonId += 1;
+
+        character = Controls.getCharacter();
     }
 
-
-    public void draw(DemoView aView)
+    /*public void press()
     {
+        if(buttonId == 0)          // move
+        {
+            if (character.canMoveForward()) {
+                character.moveForward();
+            }
+            else if (character.getWin())
+            {
+                Controls.win();
+            }
+            else
+            {
+                resetScreen(v);
+            }
+        }
+        else if(buttonId == 1)     // right
+        {
 
+        }
+        else if(buttonId == 2)     // left
+        {
+
+        }
+    }*/
+
+    public int getX()
+    {
+        return x;
     }
 
-    public void press()
+    public int getY()
     {
-        if (this.buttonId == 0)         // move
-        {
+        return y;
+    }
 
-        }
-        else if (this.buttonId == 1)    // left
-        {
+    public int getWidth()
+    {
+        return width;
+    }
 
-        }
-        else if (this.buttonId == 2)    // right
-        {
-
-        }
+    public int getHeight()
+    {
+        return height;
     }
 }
