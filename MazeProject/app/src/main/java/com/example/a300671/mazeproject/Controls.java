@@ -5,15 +5,17 @@ import android.widget.Button;
 
 public class Controls
 {
+    static Character character;
+
     static myButton moveButton;
     static myButton rightButton;
     static myButton leftButton;
 
     public Controls()
     {
-        moveButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.45), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.1));
-        rightButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.55), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.7));
-        leftButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * 0.15), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * 0.7));
+        moveButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.leftButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.highAxis));
+        rightButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.rightButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
+        leftButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.moveButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
     }
 
     public static myButton[] getButtons()
@@ -22,10 +24,20 @@ public class Controls
         return set;
     }
 
-    public void pressButton(int num)
+    /*public void pressButton(int num)
     {
         myButton[] set = {moveButton, rightButton, leftButton};
         set[num].press();
+    }*/
+
+    public static void win()
+    {
+
+    }
+
+    public static Character getCharacter()
+    {
+        return character;
     }
 
 
