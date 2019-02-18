@@ -51,31 +51,28 @@ public class myButton
         character = Controls.getCharacter();
     }
 
-    /*public void press()
+    public void press()
     {
         if(buttonId == 0)          // move
         {
-            if (character.canMoveForward()) {
-                character.moveForward();
-            }
-            else if (character.getWin())
+            if (character.canMoveForward())
             {
-                Controls.win();
+                character.moveForward();
             }
             else
             {
-                resetScreen(v);
+                character.resetCharacter();
             }
         }
         else if(buttonId == 1)     // right
         {
-
+            character.turnRight();
         }
         else if(buttonId == 2)     // left
         {
-
+            character.turnLeft();
         }
-    }*/
+    }
 
     public int getX()
     {

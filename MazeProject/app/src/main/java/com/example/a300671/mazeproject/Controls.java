@@ -11,6 +11,8 @@ public class Controls
     static myButton rightButton;
     static myButton leftButton;
 
+    static myButton[] buttonSet = {moveButton, rightButton, leftButton};
+
     public Controls()
     {
         moveButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.leftButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.highAxis));
@@ -20,19 +22,21 @@ public class Controls
 
     public static myButton[] getButtons()
     {
-        myButton[] set = {moveButton, rightButton, leftButton};
-        return set;
+        return buttonSet;
     }
 
-    /*public void pressButton(int num)
+    public static void press(int x, int y)
     {
-        myButton[] set = {moveButton, rightButton, leftButton};
-        set[num].press();
-    }*/
-
-    public static void win()
-    {
-
+        for(myButton button: buttonSet)
+        {
+            if(x > button.getX() && x < button.getX() + button.getWidth())
+            {
+                if(y > button.getY() && y < button.getY() + button.getHeight())
+                {
+                    button.press();
+                }
+            }
+        }
     }
 
     public static Character getCharacter()

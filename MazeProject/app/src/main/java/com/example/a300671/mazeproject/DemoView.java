@@ -23,6 +23,7 @@ class DemoView extends View
     private Path controlsPath;       // controls path
 
     Context context;               //for context
+    Controls controller;
 
     private Paint paintSand;       // colors
     private Paint paintBlack;
@@ -222,37 +223,24 @@ class DemoView extends View
 
     void drawController()
     {
-        width = getScreenWidth();
-        height = getScreenHeight();
-
         controlsPath.reset();
 
-        controlsPath.moveTo(width * 0.8f, height * 0.8f);   // bottom right button
-        controlsPath.lineTo(width * 0.55f, height * 0.8f);
+        myButton[] set = Controls.getButtons();
 
-        controlsPath.moveTo(width * 0.55f, height * 0.8f);
-        controlsPath.lineTo(width * 0.55f, height * 0.7f);
+        for(int i = 0; i < set.length; i++)
+        {
+            int tempX = set[i].getX();
+            int tempY = set[i].getY();
+            int tempWidth = set[i].getWidth();
+            int tempHeight = set[i].getHeight();
 
-        controlsPath.moveTo(width * 0.55f, height * 0.7f);
-        controlsPath.lineTo(width * 0.8f, height * 0.7f);
+            controlsPath.moveTo(tempX, tempY);
+            controlsPath.lineTo(tempX + tempWidth, tempY);
+            controlsPath.lineTo(tempX, tempY + tempHeight);
 
-        controlsPath.moveTo(width * 0.8f, height * 0.7f);
-        controlsPath.lineTo(width * 0.8f, height * 0.8f);
-
-
-
-
-        controlsPath.moveTo(width * 0.2f, height * 0.8f);   // bottom left button
-        controlsPath.lineTo(width * 0.45f, height * 0.8f);
-
-        controlsPath.moveTo(width * 0.45f, height * 0.8f);
-        controlsPath.lineTo(width * 0.45f, height * 0.7f);
-
-        controlsPath.moveTo(width * 0.45f, height * 0.7f);
-        controlsPath.lineTo(width * 0.2f, height * 0.7f);
-
-        controlsPath.moveTo(width * 0.2f, height * 0.7f);
-        controlsPath.lineTo(width * 0.2f, height * 0.8f);
+            controlsPath.moveTo(tempX + tempWidth, tempY);
+            controlsPath.lineTo(tempX + tempWidth, tempY + tempHeight);
+        }
 
     }
 
@@ -263,66 +251,11 @@ class DemoView extends View
         toast.show();
     }
 
-    // the below method is a designed "game loop" for running the maze program
-    void run() //we never got to use, it would make the game much better but ran out of time, call it from onStart() if you want to utilize it, not bug-tested yet
-    {          // note from Derek: the method is based on logical boolean variables - input makes a variable true, and the program seeing that it is true reacts accordingly, then resets the respective variable to false and awaits next input
-        boolean running = true;
-        
-        while(running)
-        {
-
-            try {
-                Thread.sleep(10);
-            }
-            catch (InterruptedException e) {
-                System.exit(0);
-            }
-
-
-            rightCalled = false;
-            leftCalled = false;
-            upCalled = false;
-            downCalled = false;
-            action = false;
-
-            /*if(action == true)
-            {
-                if(upCalled)
-                {
-                    if(character.canMoveForward()) {
-                        character.moveForward();
-                    }
-                    upCalled = false;
-                }
-                else if(downCalled){
-                    if(character.canMoveBackward()) {
-                        character.moveBackward();
-                        downCalled = false;
-                    }
-
-                }
-                else if(rightCalled){
-                    character.turnRight();
-                    rightCalled = false;
-                }
-                else if(leftCalled){
-                    character.turnLeft();
-                    leftCalled = false;
-                }
-
-
-            }
-            else
-            {
-                // nothing happens
-            }*/
-
-            drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
-            drawMaze();
-            invalidate();
-        }
+    public void setControls(Controls controls)
+    {
+        controller = controls;
     }
-    
+
     public int getScreenWidth(){ // accessor
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }

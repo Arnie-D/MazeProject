@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);                // not using the default activity_main XML resource
         demoView = findViewById(R.id.signature_canvas);
         character = new Character();
+
         demoView.setCharacter(character);
+
+        Controls controller = new Controls();
         demoView.drawController();
-
-
-
 
         final Toast toast = Toast.makeText(demoView.context, "This Happened", Toast.LENGTH_LONG);
 
@@ -61,39 +61,16 @@ public class MainActivity extends AppCompatActivity
                 switch (event.getAction())                     // sets the "switch" expression's target variable to the action-key of the event see next comment
                 {                                              // switch case expressions are basically if-then-else statements that make more sense to a programmer looking at the code - the target variable is set in switch(variable), and what follows is a set of cases, saying that in the case of the variable being this, do this
                     case (MotionEvent.ACTION_DOWN):            // in this case the action-key is ACTION_DOWN, meaning a finger has pressed down on the screen, and the computer will execute the following if statement
+                    {
                         Controls.press(x, y);
-                        
-                        if ((x > demoView.getScreenWidth() * 0.55 && x < demoView.getScreenWidth() * 0.8) && (y > demoView.getScreenHeight() * 0.7 && y < demoView.getScreenHeight() * 0.8)) // if the right side of the screen is pressed
-                        {
-                            character.turnRight();  // turn clockwise 90 degrees
-                            toast.show();
-                        }
-                        else if ((x > demoView.getScreenWidth() * 0.2 && x < demoView.getScreenWidth() * 0.45) && (y > demoView.getScreenHeight() * 0.7 && y < demoView.getScreenHeight() * 0.95)) // if the left side of the screen is pressed
-                        {
-                            character.turnLeft();               // turn counter-clockwise 90 degrees
-                        } 
-                        else if (y < demoView.getScreenHeight() * 0.45) // if the top of the screen is pressed NOTE: y is inverted on the programming side, so effectively this line is saying if the user presses the top .45 portion of the screen
-                        {
-                            if (character.canMoveForward()) { 
-                                character.moveForward();
-                            }
-                            else if (character.getWin())
-                            {
-                                demoView.drawWin();
-                            }
-                            else {
-                                resetScreen(v);
-                            } // end of input description
-
-                        } // end of the forward step
-
-                        else // if a "dead zone" was pressed
-                        {
-
-                        }
                         demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
                         demoView.drawController();
-                        break;
+
+                        if(character.getWin())
+                        {
+                            demoView.drawWin();
+                        }
+                    }
                     case MotionEvent.ACTION_MOVE:
                     {
 
@@ -102,6 +79,8 @@ public class MainActivity extends AppCompatActivity
                     {
 
                     }
+
+
                 }
 
                 return true;

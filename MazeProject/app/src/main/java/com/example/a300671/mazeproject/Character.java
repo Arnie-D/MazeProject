@@ -155,10 +155,6 @@ public class Character
 
         //oldx = 0;
         //oldy = 400;
-
-
-
-
     }
     
     public void moveBackward() { // abandoned mechanic, see "canMoveForward()" method
@@ -178,7 +174,6 @@ public class Character
             y -= 20;
         }
     }
-
 
 
     public void turnLeft() { // turns the character counter-clockwise
