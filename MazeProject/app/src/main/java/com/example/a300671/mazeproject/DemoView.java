@@ -28,12 +28,6 @@ class DemoView extends View
     private Paint paintSand;       // colors
     private Paint paintBlack;
     private Paint paintWhite;
-    
-    
-    public boolean rightCalled; // see initialization of DemoView
-    public boolean leftCalled;
-    public boolean upCalled;
-    public boolean downCalled;
 
     int offsetX;
     int offsetY;
@@ -76,13 +70,6 @@ class DemoView extends View
 
         offsetX = getScreenWidth() / 8;
         offsetY = getScreenHeight() / 8;
-        
-        
-        
-        rightCalled = false;                     //these variables tell us if the character is moving forward/back or left/right - these aren't used in the current program but could be used in a future version of the prohram
-        leftCalled = false;
-        upCalled = false;
-        downCalled = false;
                 
         action = false;
 
@@ -225,7 +212,7 @@ class DemoView extends View
     {
         controlsPath.reset();
 
-        myButton[] set = Controls.getButtons();
+        myButton[] set = controller.getButtons();
 
         for(int i = 0; i < set.length; i++)
         {
@@ -267,6 +254,11 @@ class DemoView extends View
     public void setCharacter(Character character)  // sets the view's character object to the passed character object
     {
         this.character = character;
+    }
+
+    public void setController(Controls aController)
+    {
+        controller = aController;
     }
      
    

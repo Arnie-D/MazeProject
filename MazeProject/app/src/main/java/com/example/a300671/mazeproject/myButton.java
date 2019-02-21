@@ -21,12 +21,14 @@ public class myButton
 
     Character character;
 
+    Controls controller;
 
 
 
 
 
-    public myButton()
+
+    public myButton(Controls aController)
     {
         width = 300;
         height = 200;
@@ -34,7 +36,9 @@ public class myButton
         buttonId = buttonId;
         buttonId += 1;
 
-        character = Controls.getCharacter();
+        controller = aController;
+
+        character = controller.getCharacter();
     }
 
     public myButton(int tempX, int tempY)
@@ -48,7 +52,7 @@ public class myButton
         buttonId = buttonId;
         buttonId += 1;
 
-        character = Controls.getCharacter();
+        character = controller.getCharacter();
     }
 
     public void press()

@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     private DemoView demoView;
     
     Character character;
+    Controls controller;
 
     public static final double leftButtonProportionX = 0.15;       // proportion of the screen width where the button starts
     public static final double moveButtonProportionX = 0.35;
@@ -39,11 +40,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);                // not using the default activity_main XML resource
         demoView = findViewById(R.id.signature_canvas);
-        character = new Character();
 
+        character = new Character();
         demoView.setCharacter(character);
 
-        Controls controller = new Controls();
+        controller = new Controls();
+        demoView.setController(controller);
+
+        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
         demoView.drawController();
 
         final Toast toast = Toast.makeText(demoView.context, "This Happened", Toast.LENGTH_LONG);
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity
                 {                                              // switch case expressions are basically if-then-else statements that make more sense to a programmer looking at the code - the target variable is set in switch(variable), and what follows is a set of cases, saying that in the case of the variable being this, do this
                     case (MotionEvent.ACTION_DOWN):            // in this case the action-key is ACTION_DOWN, meaning a finger has pressed down on the screen, and the computer will execute the following if statement
                     {
-                        Controls.press(x, y);
+                        controller.press(x, y);
                         demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
                         demoView.drawController();
 
