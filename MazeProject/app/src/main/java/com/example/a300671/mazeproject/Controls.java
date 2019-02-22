@@ -5,7 +5,7 @@ import android.widget.Button;
 
 public class Controls
 {
-    static Character character;
+    Character character;
 
     static myButton moveButton;
     static myButton rightButton;
@@ -17,9 +17,18 @@ public class Controls
     {
         buttonSet = new myButton[3];
 
-        moveButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.leftButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.highAxis));
-        rightButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.rightButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
-        leftButton = new myButton((int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.moveButtonProportionX), (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
+        moveButton = new myButton(this,
+                (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.moveButtonProportionX),
+                (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.highAxis));
+
+        rightButton = new myButton(this,
+                (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.rightButtonProportionX),
+                (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
+
+        leftButton = new myButton(this,
+                (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.leftButtonProportionX),
+                (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
+
         setButtonSet(new myButton[] {moveButton, rightButton, leftButton});
     }
 
@@ -48,6 +57,16 @@ public class Controls
         for(int i = 0; i < 3; i++)
         {
             buttonSet[i] = aButtonSet[i];
+        }
+    }
+
+    public void setCharacter(Character aCharacter)
+    {
+        character = aCharacter;
+
+        for(int i = 0; i < 3; i++)
+        {
+            buttonSet[i].setCharacter(character);
         }
     }
 

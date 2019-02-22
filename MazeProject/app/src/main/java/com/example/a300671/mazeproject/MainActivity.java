@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity
     public static final double moveButtonProportionX = 0.35;
     public static final double rightButtonProportionX = 0.55;
 
-    public static final double highAxis = 0.1;                     // button axis, high is move, low is left and right
+    public static final double highAxis = 0.5;                     // button axis, high is move, low is left and right
     public static final double lowAxis = 0.7;
 
+    public static final int buttonWidth = 300;
+    public static final int buttonHeight = 200;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -45,9 +47,10 @@ public class MainActivity extends AppCompatActivity
         demoView.setCharacter(character);
 
         controller = new Controls();
+        controller.setCharacter(character);
         demoView.setController(controller);
 
-        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
+        demoView.drawCharacter();
         demoView.drawController();
 
         final Toast toast = Toast.makeText(demoView.context, "This Happened", Toast.LENGTH_LONG);
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                     case (MotionEvent.ACTION_DOWN):            // in this case the action-key is ACTION_DOWN, meaning a finger has pressed down on the screen, and the computer will execute the following if statement
                     {
                         controller.press(x, y);
-                        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
+                        demoView.drawCharacter();
                         demoView.drawController();
 
                         if(character.getWin())
@@ -91,9 +94,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection()); // redraw character for safe measure
+        demoView.drawCharacter(); // redraw character for safe measure
 
-
+        toast.show();
     }
 
     /*@Override
@@ -105,28 +108,14 @@ public class MainActivity extends AppCompatActivity
     {
         demoView.resetScreen();
         character.resetCharacter();
-        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
-
+        demoView.drawCharacter();
         demoView.drawMaze();
         demoView.drawController();
 
     }
 
-   /* public void drawMaze(View v) 
-   {
-        Button button = findViewById(R.id.startButton);
-        button.setVisibility(View.GONE);
-
-
-        demoView.drawCharacter(character.getX(), character.getY(), character.getOldx(), character.getOldy(), character.getDirection());
-
-        demoView.drawMaze();
-
-        //demoView.run();
-    }*/
-
-   public void win()
-   {
-       demoView.drawWin();
-   }
+    public void win()
+    {
+        demoView.drawWin();
+    }
 }

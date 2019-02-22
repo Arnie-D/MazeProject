@@ -108,11 +108,13 @@ class DemoView extends View
         //invalidate();
     }
 
-    void drawCharacter(float x, float y, float oldx, float oldy, int direction) { // draws the body of the player character (NOTE: in the process of redrawing the character in this method, everything drawn by path is erased and character is redrawn)
-
+    void drawCharacter() { // draws the body of the player character (NOTE: in the process of redrawing the character in this method, everything drawn by path is erased and character is redrawn)
+        float x = character.getX();
+        float y = character.getY();
 
         float refX = x;        // reference point of triangle
         float refY = y;        // ^
+        int direction = character.getDirection();
         float xSlant;          //how much the base moves from left to right
         float ySlant;
         float topX;            //coordinates of the top of the triangle
@@ -223,7 +225,13 @@ class DemoView extends View
 
             controlsPath.moveTo(tempX, tempY);
             controlsPath.lineTo(tempX + tempWidth, tempY);
+            controlsPath.moveTo(tempX + tempWidth, tempY);
+            controlsPath.lineTo(tempX + tempWidth, tempY + tempHeight);
+            controlsPath.moveTo(tempX + tempWidth, tempY + tempHeight);
             controlsPath.lineTo(tempX, tempY + tempHeight);
+            controlsPath.moveTo(tempX, tempY + tempHeight);
+            controlsPath.lineTo(tempX, tempY);
+            controlsPath.moveTo(tempX, tempY);
 
             controlsPath.moveTo(tempX + tempWidth, tempY);
             controlsPath.lineTo(tempX + tempWidth, tempY + tempHeight);

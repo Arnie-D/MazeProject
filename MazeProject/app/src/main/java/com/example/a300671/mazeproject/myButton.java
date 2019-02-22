@@ -41,7 +41,7 @@ public class myButton
         character = controller.getCharacter();
     }
 
-    public myButton(int tempX, int tempY)
+    public myButton(Controls aController, int tempX, int tempY)
     {
         width = 300;
         height = 200;
@@ -51,8 +51,6 @@ public class myButton
 
         buttonId = buttonId;
         buttonId += 1;
-
-        character = controller.getCharacter();
     }
 
     public void press()
@@ -96,5 +94,10 @@ public class myButton
     public int getHeight()
     {
         return height;
+    }
+
+    public void setCharacter(Character aCharacter)
+    {
+        character = aCharacter;
     }
 }
