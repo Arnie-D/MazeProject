@@ -2,16 +2,17 @@ package com.example.a300671.mazeproject;
 
 import android.content.res.Resources;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Controls
 {
     Character character;
 
-    static myButton moveButton;
-    static myButton rightButton;
-    static myButton leftButton;
+    myButton moveButton;
+    myButton rightButton;
+    myButton leftButton;
 
-    static myButton[] buttonSet;
+    myButton[] buttonSet;
 
     public Controls()
     {
@@ -39,13 +40,14 @@ public class Controls
 
     public void press(int x, int y)
     {
-        for(myButton button: buttonSet)
+        for(myButton button: this.getButtons())
         {
-            if(x > button.getX() && x < button.getX() + button.getWidth())
+            if(x > button.getX() && x < (button.getX() + button.getWidth()))
             {
-                if(y > button.getY() && y < button.getY() + button.getHeight())
+                if(y > button.getY() && y < (button.getY() + button.getHeight()))
                 {
                     button.press();
+                    System.out.println("I got here- X: " + x + ", Y: " + y);
                 }
             }
         }

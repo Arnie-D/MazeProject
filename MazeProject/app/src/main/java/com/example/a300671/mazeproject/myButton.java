@@ -17,7 +17,8 @@ public class myButton
     int width;
     int height;
 
-    static int buttonId = 0;
+    int myID;
+    int buttonId = 0;
 
     Character character;
 
@@ -30,10 +31,10 @@ public class myButton
 
     public myButton(Controls aController)
     {
-        width = 300;
-        height = 200;
+        width = MainActivity.buttonWidth;
+        height = MainActivity.buttonHeight;
 
-        buttonId = buttonId;
+        myID = buttonId;
         buttonId += 1;
 
         controller = aController;
@@ -43,19 +44,21 @@ public class myButton
 
     public myButton(Controls aController, int tempX, int tempY)
     {
-        width = 300;
-        height = 200;
+        width = MainActivity.buttonWidth;
+        height = MainActivity.buttonHeight;
 
         x = tempX;
         y = tempY;
 
-        buttonId = buttonId;
+        myID = buttonId;
         buttonId += 1;
     }
 
     public void press()
     {
-        if(buttonId == 0)          // move
+        System.out.println("myID is equal to: " + myID);
+
+        if(myID == 0)          // move
         {
             if (character.canMoveForward())
             {
@@ -66,11 +69,11 @@ public class myButton
                 character.resetCharacter();
             }
         }
-        else if(buttonId == 1)     // right
+        else if(myID == 1)     // right
         {
             character.turnRight();
         }
-        else if(buttonId == 2)     // left
+        else if(myID == 2)     // left
         {
             character.turnLeft();
         }

@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity
     public static final double moveButtonProportionX = 0.35;
     public static final double rightButtonProportionX = 0.55;
 
-    public static final double highAxis = 0.5;                     // button axis, high is move, low is left and right
+    public static final double highAxis = 0.6;                     // button axis, high is move, low is left and right
     public static final double lowAxis = 0.7;
 
     public static final int buttonWidth = 300;
-    public static final int buttonHeight = 200;
+    public static final int buttonHeight = 150;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity
                         controller.press(x, y);
                         demoView.drawCharacter();
                         demoView.drawController();
+                        //System.out.println("I got here");
+                        //toast.show();
 
                         if(character.getWin())
                         {
