@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity
     Character character;
     Controls controller;
 
+    public static final int headerOffSet = 300;
+
     public static final double leftButtonProportionX = 0.15;       // proportion of the screen width where the button starts
     public static final double moveButtonProportionX = 0.35;
     public static final double rightButtonProportionX = 0.55;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         character = new Character();
         demoView.setCharacter(character);
 
+        myButton.resetID();
         controller = new Controls();
         controller.setCharacter(character);
         demoView.setController(controller);
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity
             {                                                  // the passed view will be DemoView because we assigned the onTouchListener to DemoView, and the MotionEvent is an event (such as touching down on the screen, mnoving your finger, and lifting up your finger) that is passed to the view by the device itself
 
                 int x = (int) event.getRawX();                 // captures and stores the lateral value of the screen-press
-                int y = (int) event.getRawY();                 // captures and stores the vertical value of the screen-press
+                int y = (int) event.getRawY() - headerOffSet;                 // captures and stores the vertical value of the screen-press
 
                 switch (event.getAction())                     // sets the "switch" expression's target variable to the action-key of the event see next comment
                 {                                              // switch case expressions are basically if-then-else statements that make more sense to a programmer looking at the code - the target variable is set in switch(variable), and what follows is a set of cases, saying that in the case of the variable being this, do this
@@ -72,8 +75,6 @@ public class MainActivity extends AppCompatActivity
                         controller.press(x, y);
                         demoView.drawCharacter();
                         demoView.drawController();
-                        //System.out.println("I got here");
-                        //toast.show();
 
                         if(character.getWin())
                         {

@@ -18,7 +18,7 @@ public class myButton
     int height;
 
     int myID;
-    int buttonId = 0;
+    static int buttonId = 0;
 
     Character character;
 
@@ -79,6 +79,16 @@ public class myButton
         }
     }
 
+    public void printMyStuff()
+    {
+        System.out.println("My ID is: " + myID);
+        System.out.println("My X is:  " + x);
+        System.out.println("My Width is: " + width);
+        System.out.println("My Y is: " + y);
+        System.out.println("My Height is: " + height);
+
+    }
+
     public int getX()
     {
         return x;
@@ -99,8 +109,18 @@ public class myButton
         return height;
     }
 
+    public int getID()
+    {
+        return myID;
+    }
+
     public void setCharacter(Character aCharacter)
     {
         character = aCharacter;
+    }
+
+    public static void resetID()
+    {
+        buttonId = 0;
     }
 }

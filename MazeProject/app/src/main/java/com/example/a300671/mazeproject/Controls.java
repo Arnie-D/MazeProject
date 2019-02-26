@@ -40,14 +40,25 @@ public class Controls
 
     public void press(int x, int y)
     {
-        for(myButton button: this.getButtons())
+        System.out.println("screen press at- X: " + x + ", Y: " + y);
+
+        for(myButton button: buttonSet)
         {
-            if(x > button.getX() && x < (button.getX() + button.getWidth()))
+
+            int leftX = button.getX();
+            int rightX = button.getX() + button.getWidth();
+            int topY = button.getY();
+            int bottomY = button.getY() + button.getHeight();
+
+            if((x >= leftX && x <= rightX) || (x <= rightX && x >= leftX))
             {
-                if(y > button.getY() && y < (button.getY() + button.getHeight()))
+                if((y >= topY && y <= bottomY) || (y <= bottomY && y >= topY))
                 {
                     button.press();
-                    System.out.println("I got here- X: " + x + ", Y: " + y);
+                    System.out.println("button press at- X: " + x + ", Y: " + y);
+                    System.out.println("in range: X - " + leftX + ", " + rightX + " | Y - " + topY + ", " + bottomY);
+                    button.printMyStuff();
+                    System.out.println(leftX);
                 }
             }
         }
