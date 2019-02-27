@@ -271,6 +271,7 @@ class DemoView extends View
     void drawWin() { // win-state visuals -- underwhelming
         path.reset();
         controlsPath.reset();
+        playerPath.reset();
         invalidate();
         Toast toast = Toast.makeText(context, "YOU WIN!!!", Toast.LENGTH_LONG);
         toast.show();
