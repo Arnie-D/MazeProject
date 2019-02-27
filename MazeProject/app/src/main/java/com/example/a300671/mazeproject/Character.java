@@ -34,7 +34,7 @@ public class Character
         int tempY = (int) y;
         
         if (direction == 0) { // if the player is facing right
-            if(com.example.a205037.maze.Maze.checkCollision((tempX + 20),tempY)) //checks to see if there is wall-collision in the space in front of the character
+            if(Maze.checkCollision((tempX + 20),tempY)) //checks to see if there is wall-collision in the space in front of the character
             {                                                                    // 20 is the move rate, the program is hard-wired to work with 20 - think of the maze as a board of spaces the character can be at, each space is 20 units away from the adjacent space
                 return false; // if the collision in the next space is true, then it is false that the player can move forward
             }
@@ -44,7 +44,7 @@ public class Character
             }
         }
         else if (direction == 1) { // up
-            if(com.example.a205037.maze.Maze.checkCollision(tempX, (tempY - 20)))
+            if(Maze.checkCollision(tempX, (tempY - 20)))
             {
                 return false;
             }
@@ -54,7 +54,7 @@ public class Character
             }
         }
         else if (direction == 2) {  // left
-            if(com.example.a205037.maze.Maze.checkCollision((tempX - 20), tempY))
+            if(Maze.checkCollision((tempX - 20), tempY))
             {
                 return false;
             }
@@ -64,12 +64,12 @@ public class Character
             }
         }
         else if (direction == 3) {  // down
-            if (com.example.a205037.maze.Maze.checkWin(tempX, (tempY + 20)))
+            if (Maze.checkWin(tempX, (tempY + 20)))
             {
                 win = true;
                 return false;
             }
-            else if(com.example.a205037.maze.Maze.checkCollision(tempX, (tempY + 20)))
+            else if(Maze.checkCollision(tempX, (tempY + 20)))
             {
                 return false;
             }
@@ -91,7 +91,7 @@ public class Character
         int tempY = (int) y;
         
         if (direction == 0) {
-            if(com.example.a205037.maze.Maze.checkCollision((tempX + 20),tempY))
+            if(Maze.checkCollision((tempX + 20),tempY))
             {
                 return false;
             }
@@ -101,7 +101,7 @@ public class Character
             }
         }
         else if (direction == 1) {
-            if(com.example.a205037.maze.Maze.checkCollision(tempX, (tempY - 20)))
+            if(Maze.checkCollision(tempX, (tempY - 20)))
             {
                 return false;
             }
@@ -111,7 +111,7 @@ public class Character
             }
         }
         else if (direction == 2) {
-            if(com.example.a205037.maze.Maze.checkCollision((tempX - 20), tempY))
+            if(Maze.checkCollision((tempX - 20), tempY))
             {
                 return false;
             }
@@ -121,7 +121,7 @@ public class Character
             }
         }
         else if (direction == 3) {
-            if(com.example.a205037.maze.Maze.checkCollision(tempX, (tempY + 20)))
+            if(Maze.checkCollision(tempX, (tempY + 20)))
             {
                 return false;
             }
