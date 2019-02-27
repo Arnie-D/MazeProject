@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity
     Character character;
     Controls controller;
 
-    public static final int headerOffSet = 300;
+    public static final int headerOffSet = 250;
 
     public static final double leftButtonProportionX = 0.15;       // proportion of the screen width where the button starts
-    public static final double moveButtonProportionX = 0.35;
+    public static final double moveButtonProportionX = 0.35;       //
     public static final double rightButtonProportionX = 0.55;
 
     public static final double highAxis = 0.6;                     // button axis, high is move, low is left and right
@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         demoView.drawCharacter();
         demoView.drawController();
-
-        final Toast toast = Toast.makeText(demoView.context, "This Happened", Toast.LENGTH_LONG);
 
         //Listens for when the user touches the screen then executes code
         demoView.setOnTouchListener(new View.OnTouchListener() // this onTouchListener is the basis of the entire program: it is the dedicator of all time and space- every layer of reality, in fact- in the program
@@ -98,14 +96,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         demoView.drawCharacter(); // redraw character for safe measure
-
-        toast.show();
     }
-
-    /*@Override
-    public void onStart() {
-        demoView.run();
-    }*/
 
     public void resetScreen(View v)         // resets the screen and the character along with all of the character states
     {

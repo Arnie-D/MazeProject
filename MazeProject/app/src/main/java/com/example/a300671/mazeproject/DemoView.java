@@ -19,14 +19,17 @@ class DemoView extends View
     private int height;            // height of screen
     private Bitmap bitmap;         // defines the canvas screen
     private Canvas canvas;         // the canvas used in this instance of DemoView
+
     private Path path;             // this "path" here is the lines which make up the body of the screen, both the maze and the player
     private Path controlsPath;       // controls path
+    private Path playerPath;
 
     Context context;               //for context
     Controls controller;
 
     private Paint paintSand;       // colors
     private Paint paintBlack;
+    private Paint paintRed;
     private Paint paintWhite;
 
     int offsetX;
@@ -48,8 +51,9 @@ class DemoView extends View
 
         path = new Path();
         controlsPath = new Path();
+        playerPath = new Path();
 
-        stretchValue = (float)(Resources.getSystem().getDisplayMetrics().widthPixels / com.example.a205037.maze.Maze.getMazeWidth()); //this stretches the maze points to fit the lenovo tablets' screen
+        stretchValue = (float)(Resources.getSystem().getDisplayMetrics().widthPixels / Maze.getMazeWidth()); //this stretches the maze points to fit the lenovo tablets' screen
 
         paintSand = new Paint();
         paintSand.setColor(0xffffd417);
@@ -62,6 +66,11 @@ class DemoView extends View
         paintBlack.setStyle(Paint.Style.STROKE);  // creating a "pen" that does not fill in regions
         paintBlack.setStrokeWidth(10);            // width of the pen's stroke
         paintBlack.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(Color.RED);
+        paintRed.setStyle(Paint.Style.STROKE);
+        paintRed.setStrokeWidth(10);
 
         paintWhite = new Paint();                //we don't use this but it is here for customization
         paintWhite.setColor(Color.WHITE);
@@ -92,8 +101,9 @@ class DemoView extends View
     void onDraw(Canvas canvas) // renders the screen
     {
         super.onDraw(canvas);
-        canvas.drawPath(path, paintSand);
+        canvas.drawPath(path, paintRed);
         canvas.drawPath(controlsPath, paintBlack);
+        canvas.drawPath(playerPath, paintBlack);
         //resetScreen();
 
     }
@@ -105,6 +115,7 @@ class DemoView extends View
     void resetScreen() { // clears the screen of what has been drawn by "path", so the walls of the maze and the player character
         path.reset();
         controlsPath.reset();
+        playerPath.reset();
         //invalidate();
     }
 
@@ -160,21 +171,23 @@ class DemoView extends View
             return;
         }
 
-        path.reset();  // clears all of the built path that has already been drawn, including the maze walls and character
+        path.reset();
+        controlsPath.reset();
+        playerPath.reset();
 
         drawMaze();   // redraws the maze walls
         drawController(); // redraws the controller buttons
 
 
-        path.moveTo(refX * stretchValue + offsetX, refY * stretchValue + offsetY);                       //draws base
-        path.lineTo((refX + xSlant) * stretchValue + offsetX, (refY + ySlant) * stretchValue + offsetY); //bottom right of triangle
+        playerPath.moveTo(refX * stretchValue + offsetX, refY * stretchValue + offsetY);                       //draws base
+        playerPath.lineTo((refX + xSlant) * stretchValue + offsetX, (refY + ySlant) * stretchValue + offsetY); //bottom right of triangle
 
 
-        path.moveTo(refX * stretchValue + offsetX, refY * stretchValue + offsetY);                       //draws line from left base to top
-        path.lineTo(topX * stretchValue + offsetX, topY * stretchValue + offsetY);
+        playerPath.moveTo(refX * stretchValue + offsetX, refY * stretchValue + offsetY);                       //draws line from left base to top
+        playerPath.lineTo(topX * stretchValue + offsetX, topY * stretchValue + offsetY);
 
-        path.moveTo((refX + xSlant) * stretchValue + offsetX, (refY + ySlant) * stretchValue + offsetY); //draws line from right base to top
-        path.lineTo(topX * stretchValue + offsetX, topY * stretchValue + offsetY);
+        playerPath.moveTo((refX + xSlant) * stretchValue + offsetX, (refY + ySlant) * stretchValue + offsetY); //draws line from right base to top
+        playerPath.lineTo(topX * stretchValue + offsetX, topY * stretchValue + offsetY);
 
 
         invalidate();
@@ -187,9 +200,15 @@ class DemoView extends View
 
     }
 
-    void drawMaze() { // tells the path to cover the walls of the maze
-        int[][][] walls = com.example.a205037.maze.Maze.getAllWalls();
-        int numWalls = com.example.a205037.maze.Maze.getNumWalls();
+    void drawMaze() // tells the path to cover the walls of the maze
+    {
+        path.reset();
+        int[][][] walls = Maze.getAllWalls();
+        int numWalls = Maze.getNumWalls();
+
+        int[] winCoords = Maze.getWinCoords();
+        int winX = (int) ((winCoords[0] * stretchValue) + offsetX);
+        int winY = (int) ((winCoords[1] * stretchValue) + offsetY);
 
         int[][] wall;
         int[] point1;
@@ -202,10 +221,20 @@ class DemoView extends View
             point1 = wall[0];
             point2 = wall[1];
 
+
+
             path.moveTo(point1[0] * stretchValue + offsetX, point1[1] * stretchValue + offsetY);
             path.lineTo(point2[0] * stretchValue + offsetX, point2[1] * stretchValue + offsetY);
         }
 
+        path.moveTo(winX - 10, winY - 10);
+        path.lineTo(winX + 10, winY - 10);
+        path.moveTo(winX + 10, winY - 10);
+        path.lineTo(winX + 10, winY + 10);
+        path.moveTo(winX + 10, winY + 10);
+        path.lineTo(winX - 10, winY + 10);
+        path.moveTo(winX - 10, winY + 10);
+        path.lineTo(winX - 10, winY - 10);
 
         invalidate(); //calls onDraw()
     }
@@ -241,6 +270,7 @@ class DemoView extends View
 
     void drawWin() { // win-state visuals -- underwhelming
         path.reset();
+        controlsPath.reset();
         invalidate();
         Toast toast = Toast.makeText(context, "YOU WIN!!!", Toast.LENGTH_LONG);
         toast.show();

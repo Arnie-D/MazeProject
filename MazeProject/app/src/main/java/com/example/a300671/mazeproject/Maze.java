@@ -1,4 +1,4 @@
-package com.example.a205037.maze;
+package com.example.a300671.mazeproject;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,12 +7,12 @@ import android.graphics.Color;
 public class Maze
 {
     public static int numWalls = 36;                // number of "walls" in the whole maze
+    public static int[] winCoords = {180,380};
     public static int[][][] walls = {                                          // constructed array, clone of desired walls[][][]
     {{0, 0}, {400, 0}},             // W1                    //
     {{400, 0}, {400, 400}},         // W2                    // overall capsule {} is the array of walls, each wall is its own capsule, containing two point coordinates as arrays
     {{400,400}, {0, 400}},          // W3                    // {wall 1, wall 2...}  ->  {  {W1 point A , W1 point B}, {W2 Point A , W2 Point B} ...}  ->  {   { {Xval A, Yval A} , {Xval B, Yval B} }   }
     {{0,400}, {0,0}},               // W4
-
     {{40,0}, {40,160}},                       // W5
     {{40,160}, {80,160}},                       // W6
     {{80,160}, {80,40}},                       // W7
@@ -46,8 +46,6 @@ public class Maze
     {{160,280}, {160,400}},                       // W35
     {{200,400}, {200,240}}                       // W36
     };             // array of walls[][], wall is an array of points[], a point is an array with [xVal, yVal]
-
-    public static int[] winCoords = {180,380};
 
     public static int[][] oddWallPoints = { // in essence, because of the way the maze is designed, all points that have x values that are multiples of 40 and y values that are multiples of 40 are always wall point, or wall spaces
             {20,200},                       // similarly, all points that have x values that are multiples of 20 and y values that are multiples of 20 are always open to the player
@@ -93,6 +91,8 @@ public class Maze
             {200,300},
             {200,340},
             {200,380},
+            {220,40},
+            {220,200},
             {240,100},
             {240,140},
             {240,180},
@@ -167,6 +167,11 @@ public class Maze
     public static int getMazeHeight()
     {
         return mazeHeight;
+    }
+
+    public static int[] getWinCoords()
+    {
+        return winCoords;
     }
 
     public static int getNumWalls() {
