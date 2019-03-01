@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,7 +38,8 @@ class DemoView extends View
     
     Character character;
 
-    private float stretchValue;
+    float stretchValue;
+    float buttonStretch;
     
     
 
@@ -47,13 +47,13 @@ class DemoView extends View
     {
         super(c, attributeSet);
         context = c;
-        //canvas = new Canvas();
 
         path = new Path();
         controlsPath = new Path();
         playerPath = new Path();
 
         stretchValue = (float)(Resources.getSystem().getDisplayMetrics().widthPixels / Maze.getMazeWidth()); //this stretches the maze points to fit the lenovo tablets' screen
+        buttonStretch = 5;
 
         paintSand = new Paint();
         paintSand.setColor(0xffffd417);
@@ -116,7 +116,6 @@ class DemoView extends View
         path.reset();
         controlsPath.reset();
         playerPath.reset();
-        //invalidate();
     }
 
     void drawCharacter() { // draws the body of the player character (NOTE: in the process of redrawing the character in this method, everything drawn by path is erased and character is redrawn)
@@ -192,12 +191,6 @@ class DemoView extends View
 
         invalidate();
 
-        /*CharSequence text = x + ", " + y + "";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-
-        toast.show();*/
-
     }
 
     void drawMaze() // tells the path to cover the walls of the maze
@@ -252,15 +245,15 @@ class DemoView extends View
             int tempWidth = set[i].getWidth();
             int tempHeight = set[i].getHeight();
 
-            controlsPath.moveTo(tempX, tempY);
-            controlsPath.lineTo(tempX + tempWidth, tempY);
-            controlsPath.moveTo(tempX + tempWidth, tempY);
-            controlsPath.lineTo(tempX + tempWidth, tempY + tempHeight);
-            controlsPath.moveTo(tempX + tempWidth, tempY + tempHeight);
-            controlsPath.lineTo(tempX, tempY + tempHeight);
-            controlsPath.moveTo(tempX, tempY + tempHeight);
-            controlsPath.lineTo(tempX, tempY);
-            controlsPath.moveTo(tempX, tempY);
+            controlsPath.moveTo(tempX * buttonStretch, tempY * buttonStretch);
+            controlsPath.lineTo((tempX + tempWidth) * buttonStretch, tempY * buttonStretch);
+            controlsPath.moveTo((tempX + tempWidth) * buttonStretch, tempY * buttonStretch);
+            controlsPath.lineTo((tempX + tempWidth) * buttonStretch, (tempY + tempHeight) * buttonStretch);
+            controlsPath.moveTo((tempX + tempWidth) * buttonStretch, (tempY + tempHeight) * buttonStretch);
+            controlsPath.lineTo(tempX * buttonStretch, (tempY + tempHeight) * buttonStretch);
+            controlsPath.moveTo(tempX * buttonStretch, (tempY + tempHeight) * buttonStretch);
+            controlsPath.lineTo(tempX * buttonStretch, tempY * buttonStretch);
+            controlsPath.moveTo(tempX * buttonStretch, tempY * buttonStretch);
 
             controlsPath.moveTo(tempX + tempWidth, tempY);
             controlsPath.lineTo(tempX + tempWidth, tempY + tempHeight);

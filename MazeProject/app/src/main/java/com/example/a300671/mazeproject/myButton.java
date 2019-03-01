@@ -7,8 +7,7 @@ import android.graphics.Path;
 
 public class myButton
 {
-    // a button here simply is a rectangle
-    //
+    // a button here simply is a rectangle that does something when the controller tells it to
 
 
     int x;            // x of top left corner of box
@@ -17,14 +16,14 @@ public class myButton
     int width;
     int height;
 
+    int scaledWidth;
+    int scaledHeight;
+
     int myID;
     static int buttonId = 0;
 
     Character character;
-
     Controls controller;
-
-
 
 
 
@@ -33,6 +32,9 @@ public class myButton
     {
         width = MainActivity.buttonWidth;
         height = MainActivity.buttonHeight;
+
+        scaledWidth = width * 150;
+        scaledHeight = height * 150;
 
         myID = buttonId;
         buttonId += 1;
@@ -81,11 +83,11 @@ public class myButton
 
     public void printMyStuff()
     {
-        System.out.println("My ID is: " + myID);
-        System.out.println("My X is:  " + x);
-        System.out.println("My Width is: " + width);
-        System.out.println("My Y is: " + y);
-        System.out.println("My Height is: " + height);
+        System.out.println(" > My ID is: " + myID);
+        System.out.println(" > My X is:  " + x);
+        System.out.println(" > My Width is: " + width);
+        System.out.println(" > My Y is: " + y);
+        System.out.println(" > My Height is: " + height);
 
     }
 
@@ -104,9 +106,19 @@ public class myButton
         return width;
     }
 
+    public int getScaledWidth()
+    {
+        return scaledWidth;
+    }
+
     public int getHeight()
     {
         return height;
+    }
+
+    public int getScaledHeight()
+    {
+        return scaledHeight;
     }
 
     public int getID()
