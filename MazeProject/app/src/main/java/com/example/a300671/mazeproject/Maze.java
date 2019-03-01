@@ -177,11 +177,6 @@ public class Maze
     public static int getNumWalls() {
         return numWalls;
     }
-    
-    /*public static int[][] getAllWallX(){
-        for(int[][] wall : walls)
-            return wall;
-    }*/
 
     public static boolean checkCollision(int x, int y) { //returns true if character is colliding w/ maze
         boolean collision = false;                       // "bruteForceMatch" would work fine for the purpose of this method, but that is slower, so this method speeds up the process to see first if the given point is a 40-40 point or a 20-20 point
@@ -211,13 +206,6 @@ public class Maze
         else{
             collision = true;
         }
-
-        /*for(int wall = 0; wall < numWalls; wall++){
-            if(getWallPointA(wall)[0] == getWallPointB(wall)[0]){
-                int wallX = getWallPointA(wall)[0];
-
-            }
-        }*/
 
 
         return collision;
