@@ -4,6 +4,11 @@ import android.content.res.Resources;
 import android.widget.Button;
 import android.widget.Toast;
 
+/*
+/ The controls class is the designed set of buttons for the program and the logic associated with them
+/ In the program's current state, the Controls class is effectively a static class (though not designed to be static)
+/
+ */
 public class Controls
 {
     Character character;
@@ -45,10 +50,10 @@ public class Controls
         for(myButton button: buttonSet)
         {
 
-            int leftX = button.getX();
-            int rightX = button.getX() + button.getWidth();
-            int topY = button.getY();
-            int bottomY = button.getY() + button.getHeight();
+            int leftX = button.getX() - (button.getWidth() / 2);                // the x value of a button is the x value of the center of the button
+            int rightX = button.getX() + (button.getWidth() / 2);
+            int topY = button.getY() - (button.getHeight() / 2);
+            int bottomY = button.getY() + (button.getHeight() / 2);
 
             if((x >= leftX && x <= rightX) || (x <= rightX && x >= leftX))
             {

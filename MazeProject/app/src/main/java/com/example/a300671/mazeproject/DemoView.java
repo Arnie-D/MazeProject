@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,7 +38,8 @@ class DemoView extends View
     
     Character character;
 
-    private float stretchValue;
+    float stretchValue;
+    float buttonStretch;
     
     
 
@@ -47,13 +47,12 @@ class DemoView extends View
     {
         super(c, attributeSet);
         context = c;
-        //canvas = new Canvas();
 
         path = new Path();
         controlsPath = new Path();
         playerPath = new Path();
 
-        stretchValue = (float)(Resources.getSystem().getDisplayMetrics().widthPixels / Maze.getMazeWidth()); //this stretches the maze points to fit the lenovo tablets' screen
+        stretchValue = (float)(MainActivity.stretchFactor); //this stretches the maze points to fit the lenovo tablets' screen
 
         paintSand = new Paint();
         paintSand.setColor(0xffffd417);
@@ -77,8 +76,8 @@ class DemoView extends View
         paintWhite.setStyle(Paint.Style.FILL);
         paintWhite.setStrokeWidth(10);
 
-        offsetX = getScreenWidth() / 8;
-        offsetY = getScreenHeight() / 8;
+        offsetX = (int) ((MainActivity.screenWidth - Maze.getMazeWidth() * stretchValue) / 2);
+        offsetY = (int) ((MainActivity.screenHeight - Maze.getMazeHeight() * stretchValue) / 2) - MainActivity.headerOffSet;
                 
         action = false;
 
@@ -116,7 +115,6 @@ class DemoView extends View
         path.reset();
         controlsPath.reset();
         playerPath.reset();
-        //invalidate();
     }
 
     void drawCharacter() { // draws the body of the player character (NOTE: in the process of redrawing the character in this method, everything drawn by path is erased and character is redrawn)
@@ -192,12 +190,6 @@ class DemoView extends View
 
         invalidate();
 
-        /*CharSequence text = x + ", " + y + "";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-
-        toast.show();*/
-
     }
 
     void drawMaze() // tells the path to cover the walls of the maze
@@ -221,20 +213,18 @@ class DemoView extends View
             point1 = wall[0];
             point2 = wall[1];
 
-
-
             path.moveTo(point1[0] * stretchValue + offsetX, point1[1] * stretchValue + offsetY);
             path.lineTo(point2[0] * stretchValue + offsetX, point2[1] * stretchValue + offsetY);
         }
 
-        path.moveTo(winX - 10, winY - 10);
-        path.lineTo(winX + 10, winY - 10);
-        path.moveTo(winX + 10, winY - 10);
-        path.lineTo(winX + 10, winY + 10);
-        path.moveTo(winX + 10, winY + 10);
-        path.lineTo(winX - 10, winY + 10);
-        path.moveTo(winX - 10, winY + 10);
-        path.lineTo(winX - 10, winY - 10);
+        path.moveTo(winX - 10 * stretchValue, winY - 10 * stretchValue);
+        path.lineTo(winX + 10 * stretchValue, winY - 10 * stretchValue);
+        path.moveTo(winX + 10 * stretchValue, winY - 10 * stretchValue);
+        path.lineTo(winX + 10 * stretchValue, winY + 10 * stretchValue);
+        path.moveTo(winX + 10 * stretchValue, winY + 10 * stretchValue);
+        path.lineTo(winX - 10 * stretchValue, winY + 10 * stretchValue);
+        path.moveTo(winX - 10 * stretchValue, winY + 10 * stretchValue);
+        path.lineTo(winX - 10 * stretchValue, winY - 10 * stretchValue);
 
         invalidate(); //calls onDraw()
     }
@@ -247,18 +237,18 @@ class DemoView extends View
 
         for(int i = 0; i < set.length; i++)
         {
-            int tempX = set[i].getX();
-            int tempY = set[i].getY();
-            int tempWidth = set[i].getWidth();
-            int tempHeight = set[i].getHeight();
+            int tempX = set[i].getX() - (set[i].getWidth() / 2);  // since the x value is at the center of the button, and since we want the x value of the top right point of the button, subtract half the width from x
+            int tempY = set[i].getY() - (set[i].getHeight() / 2);
+            int tempWidth = (int) (set[i].getWidth());
+            int tempHeight = (int) (set[i].getHeight());
 
             controlsPath.moveTo(tempX, tempY);
-            controlsPath.lineTo(tempX + tempWidth, tempY);
-            controlsPath.moveTo(tempX + tempWidth, tempY);
-            controlsPath.lineTo(tempX + tempWidth, tempY + tempHeight);
-            controlsPath.moveTo(tempX + tempWidth, tempY + tempHeight);
-            controlsPath.lineTo(tempX, tempY + tempHeight);
-            controlsPath.moveTo(tempX, tempY + tempHeight);
+            controlsPath.lineTo((tempX + tempWidth), tempY);
+            controlsPath.moveTo((tempX + tempWidth), tempY);
+            controlsPath.lineTo((tempX + tempWidth), (tempY + tempHeight));
+            controlsPath.moveTo((tempX + tempWidth), (tempY + tempHeight));
+            controlsPath.lineTo(tempX, (tempY + tempHeight));
+            controlsPath.moveTo(tempX, (tempY + tempHeight));
             controlsPath.lineTo(tempX, tempY);
             controlsPath.moveTo(tempX, tempY);
 
@@ -269,10 +259,6 @@ class DemoView extends View
     }
 
     void drawWin() { // win-state visuals -- underwhelming
-        path.reset();
-        controlsPath.reset();
-        playerPath.reset();
-        invalidate();
         Toast toast = Toast.makeText(context, "YOU WIN!!!", Toast.LENGTH_LONG);
         toast.show();
     }

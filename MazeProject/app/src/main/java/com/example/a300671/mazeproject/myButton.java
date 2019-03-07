@@ -7,8 +7,7 @@ import android.graphics.Path;
 
 public class myButton
 {
-    // a button here simply is a rectangle
-    //
+    // a button here simply is a rectangle that does something when the controller tells it to
 
 
     int x;            // x of top left corner of box
@@ -21,18 +20,15 @@ public class myButton
     static int buttonId = 0;
 
     Character character;
-
     Controls controller;
-
-
 
 
 
 
     public myButton(Controls aController)
     {
-        width = MainActivity.buttonWidth;
-        height = MainActivity.buttonHeight;
+        width = (int) (MainActivity.buttonWidthProportion * MainActivity.screenWidth);
+        height = (int) (MainActivity.buttonHeightProportion * MainActivity.screenHeight);
 
         myID = buttonId;
         buttonId += 1;
@@ -44,8 +40,8 @@ public class myButton
 
     public myButton(Controls aController, int tempX, int tempY)
     {
-        width = MainActivity.buttonWidth;
-        height = MainActivity.buttonHeight;
+        width = (int) (MainActivity.buttonWidthProportion * MainActivity.screenWidth);
+        height = (int) (MainActivity.buttonHeightProportion * MainActivity.screenHeight);
 
         x = tempX;
         y = tempY;
@@ -81,11 +77,11 @@ public class myButton
 
     public void printMyStuff()
     {
-        System.out.println("My ID is: " + myID);
-        System.out.println("My X is:  " + x);
-        System.out.println("My Width is: " + width);
-        System.out.println("My Y is: " + y);
-        System.out.println("My Height is: " + height);
+        System.out.println(" > My ID is: " + myID);
+        System.out.println(" > My X is:  " + x);
+        System.out.println(" > My Width is: " + width);
+        System.out.println(" > My Y is: " + y);
+        System.out.println(" > My Height is: " + height);
 
     }
 

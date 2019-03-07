@@ -1,6 +1,7 @@
 package com.example.a300671.mazeproject;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,22 +21,27 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity
 {
     private DemoView demoView;
-    
+
     Character character;
     Controls controller;
 
-    public static final int headerOffSet = 250;
+    public static final float screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    public static final float screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-    public static final double leftButtonProportionX = 0.15;       // proportion of the screen width where the button starts
-    public static final double moveButtonProportionX = 0.35;       //
-    public static final double rightButtonProportionX = 0.55;
+    public static final float stretchFactor = (Resources.getSystem().getDisplayMetrics().widthPixels / Maze.getMazeWidth());
+    public static final float stretchMeasure = 1;
 
-    public static final double highAxis = 0.6;                     // button axis, high is move, low is left and right
-    public static final double lowAxis = 0.7;
+    public static final int headerOffSet = (int) (screenHeight * 0.1);
 
-    public static final int buttonWidth = 300;
-    public static final int buttonHeight = 150;
+    public static final double leftButtonProportionX = 0.4;       // proportion of the screen width where the button is centered
+    public static final double moveButtonProportionX = 0.5;       //
+    public static final double rightButtonProportionX = 0.6;
 
+    public static final double highAxis = 0.790;                     // vertical proportions of the screen to which buttons are assigned, high is move, low is left and right
+    public static final double lowAxis = 0.875;
+
+    public static final double buttonWidthProportion = .2;        // proportion of screen's width dedicated to buton
+    public static final double buttonHeightProportion = .085;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity
                         if(character.getWin())
                         {
                             demoView.drawWin();
+
                         }
                     }
                     case MotionEvent.ACTION_MOVE:
