@@ -25,11 +25,12 @@ public class MainActivity extends AppCompatActivity
     Character character;
     Controls controller;
 
-    public static final float screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    public static final float screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    public static final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    public static final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    public static final float targetMazeWidth = (float) ((0.8) * (Resources.getSystem().getDisplayMetrics().widthPixels));
 
     public static final float stretchFactor = (Resources.getSystem().getDisplayMetrics().widthPixels / Maze.getMazeWidth());
-    public static final float stretchMeasure = 1;
+    public static final float stretchMeasure = targetMazeWidth / Maze.getMazeWidth();
 
     public static final int headerOffSet = (int) (screenHeight * 0.1);
 

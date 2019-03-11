@@ -52,7 +52,7 @@ class DemoView extends View
         controlsPath = new Path();
         playerPath = new Path();
 
-        stretchValue = (float)(MainActivity.stretchFactor); //this stretches the maze points to fit the lenovo tablets' screen
+        stretchValue = (float)(MainActivity.stretchMeasure); //this stretches the maze points to fit the lenovo tablets' screen
 
         paintSand = new Paint();
         paintSand.setColor(0xffffd417);
@@ -76,8 +76,8 @@ class DemoView extends View
         paintWhite.setStyle(Paint.Style.FILL);
         paintWhite.setStrokeWidth(10);
 
-        offsetX = (int) ((MainActivity.screenWidth - Maze.getMazeWidth() * stretchValue) / 2);
-        offsetY = (int) ((MainActivity.screenHeight - Maze.getMazeHeight() * stretchValue) / 2) - MainActivity.headerOffSet;
+        offsetX = (int) ((MainActivity.screenWidth / 2) - (MainActivity.targetMazeWidth / 2));
+        offsetY = (int) MainActivity.screenHeight / 9;
                 
         action = false;
 

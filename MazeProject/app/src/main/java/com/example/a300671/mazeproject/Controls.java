@@ -23,17 +23,18 @@ public class Controls
     {
         buttonSet = new myButton[3];
 
+        // calls class constructor of myButton, (Controls aController, int tempX, int tempY)
         moveButton = new myButton(this,
-                (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.moveButtonProportionX),
-                (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.highAxis));
+                (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.moveButtonProportionX),       // sets the x of the button to a set proportion mark of the screen width (screen's width * proportion)
+                (int) ((Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.highAxis)) - MainActivity.headerOffSet);                  // sets the y of the button to a set proportion mark of the screen height
 
         rightButton = new myButton(this,
                 (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.rightButtonProportionX),
-                (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
+                (int) ((Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis)) - MainActivity.headerOffSet);
 
         leftButton = new myButton(this,
                 (int) (Resources.getSystem().getDisplayMetrics().widthPixels * MainActivity.leftButtonProportionX),
-                (int) (Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis));
+                (int) ((Resources.getSystem().getDisplayMetrics().heightPixels * MainActivity.lowAxis)) - MainActivity.headerOffSet);
 
         setButtonSet(new myButton[] {moveButton, rightButton, leftButton});
     }
@@ -52,7 +53,7 @@ public class Controls
 
             int leftX = button.getX() - (button.getWidth() / 2);                // the x value of a button is the x value of the center of the button
             int rightX = button.getX() + (button.getWidth() / 2);
-            int topY = button.getY() - (button.getHeight() / 2);
+            int topY = (button.getY() - (button.getHeight() / 2));
             int bottomY = button.getY() + (button.getHeight() / 2);
 
             if((x >= leftX && x <= rightX) || (x <= rightX && x >= leftX))
